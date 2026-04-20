@@ -123,5 +123,5 @@ Name: Maram Ruthvi, Email Address: 142301021@smail.iitpkd.ac.in
 
 
 ## Link to datasets and other relevant repositories
-MIRACL Multilingual Dataset - https://huggingface.co/datasets/miracl/miracl
+MIRACL Multilingual Dataset - https://huggingface.co/datasets/miracl/miracl <br>
 MyScheme (Scraped website) - https://www.myscheme.gov.in/
