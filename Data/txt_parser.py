@@ -110,7 +110,6 @@ def process_all_files(input_directory, output_json_file):
     print(f"Successfully processed {doc_counter - 1} valid files.")
     print(f"Saved to: {output_json_file}")
 
-
 INPUT_FOLDER = "Scheme_Data" 
 OUTPUT_FILE = "gov_corpus.json"
 process_all_files(INPUT_FOLDER, OUTPUT_FILE)
