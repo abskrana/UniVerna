@@ -31,8 +31,74 @@ UniVerna utilizes a multi-stage, multi-vector architecture to combine the best o
 
 ### Application
 
+The application is a **Telegram RAG Bot** consisting of three FastAPI services (Bot · LLM · RAG) running on `localhost:8000–8002`.
+
+> 📖 **For full details** (architecture, config variables, database schema, deployment notes), see [`Application/README.md`](Application/README.md).
+
+**Prerequisites**
+- Python 3.11, `uv` package manager, `bash` (Linux / WSL / Lightning AI CloudSpace)
+- A **Telegram Bot Token** ([@BotFather](https://t.me/botfather))
+- A **Google Gemini API Key** (for the default `gemini` LLM backend)
+
+**Quick Configuration**
+Set the two mandatory environment variables before starting:
+```bash
+export TELEGRAM_BOT_TOKEN="your_telegram_bot_token"
+export GEMINI_API_KEY="your_gemini_api_key"
+```
+All other settings (ports, timeouts, rate limits, etc.) have sensible defaults in `config.py`.
+
+**Installation & Startup**
+```bash
+cd Application
+bash start.sh          # creates .venv, installs deps, starts all 3 services
+```
+`start.sh` automatically registers the Telegram webhook when `WEBHOOK_HOST` or `LIGHTNING_CLOUDSPACE_HOST` is set. If not auto-registered, run:
+```bash
+curl -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/setWebhook" \
+     -d "url=https://<your-public-host>/webhook"
+```
+
+**Shutdown**
+```bash
+bash stop.sh           # gracefully stops all 3 services
+```
+
 
 ## A file manifest (a list of files in the directory or archive)
+
+### Root
+| File | Description |
+|---|---|
+| `README.md` | This file — project overview, setup instructions, and manifest |
+| `LICENSE` | MIT License text |
+
+### Application/
+| File | Description |
+|---|---|
+| `README.md` | Full technical documentation for the Telegram RAG Bot (architecture, config, DB schema, deployment) |
+| `main.py` | FastAPI webhook server (port 8000) — handles Telegram updates, onboarding, rate limiting, and the RAG pipeline |
+| `llm_server.py` | LLM inference server (port 8001) — supports Google Gemini and HuggingFace backends |
+| `rag_server.py` | RAG retrieval server (port 8002) — loads corpus, encodes with LaBSE + BGE-M3, serves 7-method MRR ensemble search |
+| `database.py` | Async SQLite layer (aiosqlite) — manages `users`, `user_profiles`, `messages`, and `query_cache` tables |
+| `config.py` | Central configuration — all settings read from environment variables with defaults |
+| `gov_corpus.json` | Hierarchical knowledge base of Indian government schemes used by the RAG server |
+| `requirements.txt` | Pinned Python dependencies for all three services |
+| `start.sh` | Bash startup script — creates virtual environment, installs dependencies, starts all services, registers Telegram webhook |
+| `stop.sh` | Bash shutdown script — gracefully stops all services and cleans up PID file |
+
+### Data/
+| File | Description |
+|---|---|
+| `gov_corpus.json` | Raw government scheme corpus (source data before processing into Application format) |
+| `myscheme_scraper.py` | Web scraper that collects government scheme data from myscheme.gov.in |
+| `txt_parser.py` | Parser that converts raw scraped text files into structured JSON corpus format |
+| `telugu_english_queries.xlsx` | Bilingual (Telugu–English) query dataset used for evaluation |
+
+### Evaluation/
+| File | Description |
+|---|---|
+| `NLP_Project_Evaluation.ipynb` | Jupyter notebook — runs the full evaluation pipeline and generates retrieval metrics (MRR, NDCG, precision, recall) on Lightning AI L4 |
 
 
 ## Copyright and Licensing Information
