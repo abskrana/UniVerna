@@ -26,7 +26,7 @@ UniVerna utilizes a multi-stage, multi-vector architecture to combine the best o
 1. Go to Lightning AI website (https://lightning.ai/)
 2. Create a new studio in a workspace
 3. Choose L4 environment
-4. Upload the jupyter notebook present in the Evaluation folder
+4. Upload the jupyter notebook present in the Evaluation folder as well as the gov_corpus.json present in the Data folder
 5. Run all the cells of the jupyter notebook to get all the evaluation results
 
 ### Application
