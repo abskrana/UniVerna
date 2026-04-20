@@ -20,7 +20,10 @@ UniVerna utilizes a multi-stage, multi-vector architecture to combine the best o
 
 ## Configuration, Installation and Operating instructions
 ### Data
-
+1. Clone the Repository
+2. Install Required Libraries
+3. Run Web Scraper file using "python myscheme_scraper.py" - Folder Scheme_Data/ will be created which Contains scraped scheme documents
+4. Convert raw text files into structured dataset by running "python txt_parser.py" - final dataset gov_corpus.json is created.
 
 ### Evaluation
 1. Go to Lightning AI website (https://lightning.ai/)
@@ -120,3 +123,5 @@ Name: Maram Ruthvi, Email Address: 142301021@smail.iitpkd.ac.in
 
 
 ## Link to datasets and other relevant repositories
+MIRACL Multilingual Dataset - https://huggingface.co/datasets/miracl/miracl
+MyScheme (Scraped website) - https://www.myscheme.gov.in/
